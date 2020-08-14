@@ -1,23 +1,36 @@
-create table TRAINEE (
-             traineeId int not null identity(1,1) primary key , 
-			 Full_Name varchar(100) ,
-			 Birth_Date date , 
-			 gender bit , 
-			 ET_IQ int not null , check(ET_IQ  between 0 and 20 ), 
-			 EtMath int not null , check(EtMath  between 0 and 20 ) , 
-			 EtEnglish int not null , check(EtEnglish  between 0 and 20 ), 
-			 training varchar(100) not null , 
-			 notes varchar(100) not null 
 
-)
-
-insert into TRAINEE values ('T', '2020-1-1', 1, 16,16,19, 'net', 'good', 'aaa' )  ;
-insert into TRAINEE values ('T1', '2020-1-1', 1, 16,16,16, 'net', 'good','19' ) ;
-insert into TRAINEE values ('T2', '2020-1-1', 1, 16,16,16, 'net', 'good' ,'boy') ;
-insert into TRAINEE values ('T3', '2020-1-1', 1, 19,19,19, 'net', 'good' , 'girl') ;
+--tạo bảng TRAINEE
+CREATE TABLE Trainee(
+	TraineeID int IDENTITY(1,1) PRIMARY KEY,
+	Full_Name nvarchar(50),
+	Birth_Date date,
+	Gender bit,
+	ET_IQ TINYINT CHECK(ET_IQ BETWEEN 0 and 20),
+	ET_Gmath TINYINT CHECK(ET_Gmath BETWEEN 0 and 20),
+	ET_English TINYINT CHECK(ET_English BETWEEN 0 and 50),
+	Training_Class char(5) NOT NULL,
+	Evaluation_Notes nvarchar(50) NOT NULL,)
 
 
-alter table TRAINEE  add Fsolt_Account varchar(100) not null unique 
+--thêm dữ liệu vào bảng
+INSERT INTO Trainee (Full_Name,Birth_Date,Gender,ET_IQ,ET_Gmath,ET_English,Training_Class,Evaluation_Notes)
+VALUES(N'ĐÀO VĂN TUYÊN','1998-01-25',1,20,20,20,'.NET',N'tốt');
+INSERT INTO Trainee (Full_Name,Birth_Date,Gender,ET_IQ,ET_Gmath,ET_English,Training_Class,Evaluation_Notes)
+VALUES(N'	','1998-01-25',0,19,10,50,'java',N'gôd');
+INSERT INTO Trainee (Full_Name,Birth_Date,Gender,ET_IQ,ET_Gmath,ET_English,Training_Class,Evaluation_Notes)
+VALUES(N'!@','1998-01-25',1,1,0,20,'.NET','!!!!');
 
-select Full_Name,ET_IQ, EtMath, EtEnglish from TRAINEE group by Full_Name, ET_IQ, EtMath, EtEnglish 
-having ET_IQ + EtMath >=20 and ET_IQ >= 8 and EtMath >= 8 and EtEnglish >= 18 
+--xóa dữ liệu của bảng để có thể ADD thêm cột Fsoft_Account NOT NULL UNIQUE
+ALTER TABLE Trainee ADD Fsoft_Account varchar(100) NOT NULL UNIQUE;
+
+--insert lại thêm cột Fsoft_Account
+INSERT INTO Trainee (Full_Name,Birth_Date,Gender,ET_IQ,ET_Gmath,ET_English,Training_Class,Evaluation_Notes,Fsoft_Account)
+VALUES(N'ĐÀO VĂN TUYÊN','1998-01-25',1,20,20,20,'.NET',N'tốt','NN');
+INSERT INTO Trainee (Full_Name,Birth_Date,Gender,ET_IQ,ET_Gmath,ET_English,Training_Class,Evaluation_Notes,Fsoft_Account)
+VALUES(N'	','1998-01-25',0,19,10,50,'java',N'gôd','!@#');
+INSERT INTO Trainee (Full_Name,Birth_Date,Gender,ET_IQ,ET_Gmath,ET_English,Training_Class,Evaluation_Notes,Fsoft_Account)
+VALUES(N'!@','1998-01-25',1,1,0,20,'.NET','!!!!','	 ha');
+
+
+SELECT Full_Name,ET_IQ,ET_Gmath,ET_English From Trainee GROUP BY Full_Name,ET_IQ,ET_Gmath,ET_English
+HAVING ET_IQ + ET_Gmath >=20 and ET_IQ >= 8 and ET_Gmath >= 8 and ET_English >= 18 
